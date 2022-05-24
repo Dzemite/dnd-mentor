@@ -4,6 +4,6 @@ export default {
   getUser: (state: State): UserState => state.user,
   getProp:
     <T extends keyof UserState>(propKey: T) =>
-    (state: State) =>
+    (state: State): any =>
       state.user[propKey],
 };
