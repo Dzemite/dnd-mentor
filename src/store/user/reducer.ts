@@ -4,8 +4,7 @@ import { UserState } from '@/types';
 
 const initialState: UserState = {
   address: '',
-  xbfBalance: '0',
-  ftmBalance: '0',
+  tokenBalance: '0',
   provider: '',
 };
 

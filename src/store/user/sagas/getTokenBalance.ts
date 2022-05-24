@@ -23,7 +23,7 @@ export function* getTokenBalanceSaga({
       const balance = yield* call(tokenContract.methods.balanceOf(address).call);
       const decimals = yield* call(tokenContract.methods.decimals().call);
 
-      yield put(updateUserState({ xbfBalance: fromDecimals(balance, +decimals) }));
+      yield put(updateUserState({ tokenBalance: fromDecimals(balance, +decimals) }));
     }
 
     yield put(success(type));
