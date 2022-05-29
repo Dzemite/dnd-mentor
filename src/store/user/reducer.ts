@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { UserState } from '@/types';
+import { Chains, UserState } from 'types';
 
 const initialState: UserState = {
   address: '',
-  tokenBalance: '0',
   provider: '',
+  chainType: 'testnet', // TODO change on mainnet preferably
+  network: Chains['Binance-Smart-Chain'],
 };
 
 export const userReducer = createSlice({

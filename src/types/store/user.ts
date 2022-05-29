@@ -1,5 +1,8 @@
+import { Chains, IChainType } from 'types/connect';
+
 export type UserState = {
   address: string;
   provider: string;
-  tokenBalance: string;
+  chainType: IChainType;
+  network: Chains;
 };

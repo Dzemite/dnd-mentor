@@ -24,17 +24,7 @@ export interface TypographyProps {
   weight?: 'normal' | 'medium' | 'semiBold' | 'bold';
   height?: number | string;
   spacing?: number | string;
-  color?:
-    | 'default'
-    | 'white'
-    | 'accent'
-    | 'label1'
-    | 'label2'
-    | 'details'
-    | 'pink'
-    | 'blue'
-    | 'gray'
-    | 'purple';
+  color?: 'default' | 'white' | 'accent' | 'label1' | 'label2' | 'details' | 'pink' | 'blue' | 'gray' | 'purple';
   isUpper?: boolean;
   className?: string;
 }
@@ -81,14 +71,7 @@ export const Typography: FC<PropsWithChildren<TypographyProps>> = ({
     textTransform: isUpper && 'uppercase',
   };
   const props = {
-    className: cn(
-      s.typography,
-      s[type],
-      align && s[align],
-      weight && s[weight],
-      s[color],
-      className,
-    ),
+    className: cn(s.typography, s[type], align && s[align], weight && s[weight], s[color], className),
     style: styles,
     ...rest,
   };

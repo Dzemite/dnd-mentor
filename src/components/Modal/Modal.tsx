@@ -1,4 +1,4 @@
-import { PropsWithChildren, VFC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import cn from 'clsx';
 import Dialog from 'rc-dialog';
 
@@ -9,12 +9,7 @@ export interface ModalProps {
   visible: boolean;
   onClose: () => void;
 }
-export const Modal: VFC<PropsWithChildren<ModalProps>> = ({
-  className,
-  visible,
-  onClose,
-  children,
-}) => {
+export const Modal: FC<PropsWithChildren<ModalProps>> = ({ className, visible, onClose, children }) => {
   return (
     <Dialog
       prefixCls="modal"

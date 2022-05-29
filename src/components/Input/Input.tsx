@@ -1,8 +1,7 @@
-import { ReactElement, useCallback, FC } from 'react';
+import { FC, ReactElement, useCallback } from 'react';
+import { Loader } from 'assets/img';
 import cn from 'clsx';
-
-import { Loader } from '@/assets/img';
-import { validateOnlyNumbers } from '@/utils/validateOnlyNumbers';
+import { validateOnlyNumbers } from 'utils/validateOnlyNumbers';
 
 import s from './styles.module.scss';
 
@@ -76,13 +75,7 @@ export const Input: FC<InputProps> = ({
         value={value}
         disabled={disabled || loading}
         onChange={(e) => handleChangeInput(e.target.value)}
-        className={cn(
-          s.input,
-          s[color],
-          s[variant],
-          { [s.withIcon]: startIcon || loading },
-          inputClassName,
-        )}
+        className={cn(s.input, s[color], s[variant], { [s.withIcon]: startIcon || loading }, inputClassName)}
       />
       <span className={cn(s.startIcon)}>{(loading && <Loader />) || startIcon}</span>
     </div>

@@ -1,53 +1,77 @@
-import { INetwork } from '@amfi/connect-wallet/dist/interface';
-
-import { Chains, IConnectWallet, IContracts } from '@/types';
+import { Chains, IChainType, IConnectWallet, IContracts } from 'types';
 
 import { erc20Abi } from './abi';
-import { isMainnet } from './constants';
-
-const INFURA_KEY = '4d2ebfa160d54fddb43d5f09768914b6';
 
 export const chains: {
   [key: string]: {
-    name: Chains;
-    network: INetwork;
-    provider: {
-      [key: string]: any;
+    [key: string]: {
+      name: string;
+      chainId: number;
+      provider: {
+        [key: string]: any;
+      };
+      img?: any;
     };
-    explorer: string;
   };
 } = {
-  [Chains.Kovan]: {
-    name: Chains.Kovan,
-    network: {
-      chainID: isMainnet ? 1 : 42,
-      chainName: isMainnet ? 'Ethereum' : 'Kovan Testnet',
-      rpc: isMainnet
-        ? `https://mainnet.infura.io/v3/${INFURA_KEY}`
-        : `https://kovan.infura.io/v3/${INFURA_KEY}`,
-      blockExplorerUrl: isMainnet ? 'https://etherscan.io/' : 'https://kovan.etherscan.io/',
+  'Binance-Smart-Chain': {
+    mainnet: {
+      name: 'Binance-Smart-Chain',
+      chainId: 56,
+      provider: {
+        MetaMask: { name: 'MetaMask' },
+        WalletConnect: {
+          name: 'WalletConnect',
+          useProvider: 'rpc',
+          provider: {
+            rpc: {
+              rpc: {
+                56: 'https://bsc-dataseed.binance.org/',
+              },
+              chainId: 56,
+            },
+          },
+        },
+      },
     },
-    provider: {
-      MetaMask: { name: 'MetaMask' },
+    testnet: {
+      name: 'Binance-Smart-Chain',
+      chainId: 97,
+      provider: {
+        MetaMask: { name: 'MetaMask' },
+        WalletConnect: {
+          name: 'WalletConnect',
+          useProvider: 'rpc',
+          provider: {
+            rpc: {
+              rpc: {
+                97: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+              },
+              chainId: 97,
+            },
+          },
+        },
+      },
     },
-    explorer: isMainnet ? 'https://etherscan.io/' : 'https://kovan.etherscan.io/',
   },
 };
 
-export const connectWallet = (chainName: Chains): IConnectWallet => {
-  const chain = chains[chainName];
-
+export const connectWallet = (newChainName: Chains, type: IChainType): IConnectWallet => {
+  const chain = chains[newChainName][type];
   return {
-    wallets: ['MetaMask'],
-    network: chain.network,
+    network: {
+      chainName: chain.name,
+      chainID: chain.chainId,
+    },
     provider: chain.provider,
     settings: { providerType: true },
   };
 };
 
-// eslint-disable-next-line no-shadow
 export enum ContractsNames {
-  token = 'token',
+  totopad = 'totopad',
+  totoro = 'totoro',
+  fundingToken = 'fundingToken',
 }
 
 export type IContractsNames = keyof typeof ContractsNames;
@@ -56,26 +80,19 @@ export const contractsConfig: IContracts = {
   names: Object.keys(ContractsNames),
   decimals: 18,
   contracts: {
-    [ContractsNames.token]: {
-      mainnet: {
-        address: '',
+    [ContractsNames.totopad]: {
+      testnet: {
+        address: {
+          [Chains['Binance-Smart-Chain']]: '0x658396178d33C91a5C60A1164828e00008769a74',
+        },
         abi: erc20Abi,
       },
-      testnet: {
-        address: '',
+      mainnet: {
+        address: {
+          [Chains['Binance-Smart-Chain']]: '0x658396178d33C91a5C60A1164828e00008769a74',
+        },
         abi: erc20Abi,
       },
     },
   },
-};
-
-export const networkDataForAddToMetamask = {
-  chainID: isMainnet ? 1 : 42,
-  chainName: isMainnet ? 'Ethereum' : 'Kovan Testnet',
-  rpcUrls: [
-    isMainnet
-      ? `https://mainnet.infura.io/v3/${INFURA_KEY}`
-      : `https://kovan.infura.io/v3/${INFURA_KEY}`,
-  ],
-  blockExplorerUrls: [isMainnet ? 'https://etherscan.io/' : 'https://kovan.etherscan.io/'],
 };

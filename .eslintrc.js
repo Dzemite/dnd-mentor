@@ -28,7 +28,7 @@ module.exports = {
     'no-use-before-define': 'off',
     'no-debugger': 'warn',
     'no-shadow': 'off',
-    'import/no-extraneous-dependencies': ['error', {'devDependencies': true}],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'simple-import-sort/imports': [
       'warn',
       {
@@ -60,6 +60,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/jsx-no-constructed-context-values': 'off',
     'react/function-component-definition': [
       2,
       {

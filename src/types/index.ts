@@ -21,3 +21,9 @@ export enum RoundingModes {
   up,
   down,
 }
+
+export interface INotifyModalProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: { [k: string]: any };
+  closeModal: () => void;
+}

@@ -1,4 +1,4 @@
-import { RequestStatus, UIState } from '@/types/store';
+import { RequestStatus, UIState } from 'types/store';
 
 const getUIReducer =
   (
@@ -11,11 +11,7 @@ const getUIReducer =
 
     if (type === 'RESET_UI') return initialState;
 
-    const matches = /(.*)_(REQUEST|SUCCESS|ERROR|RESET)/.exec(type) as unknown as [
-      undefined,
-      string,
-      RequestStatus,
-    ];
+    const matches = /(.*)_(REQUEST|SUCCESS|ERROR|RESET)/.exec(type) as unknown as [undefined, string, RequestStatus];
 
     if (!matches) return state;
 

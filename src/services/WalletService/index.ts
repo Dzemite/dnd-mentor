@@ -1,10 +1,7 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ConnectWallet } from '@amfi/connect-wallet';
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
-
-import { connectWallet as connectWalletConfig } from '@/config';
-import { Chains, WalletProviders } from '@/types';
+import { connectWallet as connectWalletConfig } from 'config';
+import { Chains, IChainType, WalletProviders } from 'types';
 
 export class WalletService {
   public connectWallet: ConnectWallet;
@@ -16,18 +13,17 @@ export class WalletService {
   public async initWalletConnect(
     providerName: WalletProviders,
     chainName: Chains,
-  ): Promise<boolean | unknown> {
-    const { provider, network, settings } = connectWalletConfig(chainName);
+    type: IChainType,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+  ): Promise<boolean | {}> {
+    const { provider, network, settings } = connectWalletConfig(chainName, type);
 
     try {
-      const connecting = await this.connectWallet.connect(
-        provider[providerName],
-        network,
-        settings,
-      );
+      const connecting = await this.connectWallet.connect(provider[providerName], network, settings);
 
       return connecting;
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('initWalletConnect providerWallet err: ', error);
       return false;
     }

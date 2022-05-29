@@ -1,8 +1,7 @@
 import { FC, PropsWithChildren, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import { Loader } from 'assets/img';
 import cn from 'clsx';
-
-import { Loader } from '@/assets/img';
 
 import s from './styles.module.scss';
 
@@ -67,13 +66,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
     );
   if (href)
     return (
-      <a
-        type="button"
-        className={cn(s.link, className)}
-        href={href}
-        target="_blank"
-        rel="noreferrer noopener"
-      >
+      <a type="button" className={cn(s.link, className)} href={href} target="_blank" rel="noreferrer noopener">
         {button}
       </a>
     );

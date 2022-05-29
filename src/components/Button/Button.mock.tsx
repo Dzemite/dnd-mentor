@@ -1,4 +1,4 @@
-import { SuccessIcon } from '@/assets/img';
+import { SuccessIcon } from 'assets/img';
 
 import { ButtonProps } from './Button';
 

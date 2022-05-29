@@ -1,11 +1,11 @@
-import userActionTypes from '@/store/user/actionTypes';
-import { UIState } from '@/types';
-import { RequestStatus } from '@/types/store';
+import userActionTypes from 'store/user/actionTypes';
+import { UIState } from 'types';
+import { RequestStatus } from 'types/store';
 
 import { getUIReducer } from '.';
 
 const initialState: UIState = {
-  [userActionTypes.GET_TOKEN_BALANCE]: RequestStatus.INIT,
+  [userActionTypes.APPROVE]: RequestStatus.INIT,
 };
 
 const uiReducer = getUIReducer(initialState);

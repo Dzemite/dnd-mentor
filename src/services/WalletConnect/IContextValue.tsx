@@ -17,12 +17,9 @@ interface IContextValue {
   disconnect: () => void;
   walletService: WalletService;
 }
-
 type IAccountInfo = IConnect | IError | { address: string };
-
 const Web3Context = createContext({} as IContextValue);
-
-const WalletConnectContext: FC<any> = ({ children }) => {
+const WalletConnectContext: FC<unknown> = ({ children }) => {
   const [currentSubsriber, setCurrentSubsciber] = useState<Subscription>();
   const WalletConnect = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();
@@ -71,7 +68,6 @@ const WalletConnectContext: FC<any> = ({ children }) => {
       const connected = await WalletConnect.initWalletConnect(provider, chain, chainType);
       if (connected) {
         try {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const sub: any = WalletConnect.eventSubscribe().subscribe(subscriberSuccess, subscriberError);
           const accountInfo: IAccountInfo = await WalletConnect.getAccount();
           const accountAddress = (accountInfo as IConnect).address;
@@ -114,7 +110,5 @@ const WalletConnectContext: FC<any> = ({ children }) => {
     </Web3Context.Provider>
   );
 };
-
 const useWalletConnectorContext = () => useContext(Web3Context);
-
 export { WalletConnectContext, useWalletConnectorContext };

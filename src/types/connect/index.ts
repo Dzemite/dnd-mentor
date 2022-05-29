@@ -1,12 +1,11 @@
 import { INetwork, IProvider, ISettings } from '@amfi/connect-wallet/src/interface';
 
 export enum Chains {
-  Kovan = 'Kovan',
+  'Binance-Smart-Chain' = 'Binance-Smart-Chain',
 }
 export type IChainType = 'testnet' | 'mainnet';
 
 export interface IConnectWallet {
-  wallets: string[];
   network: INetwork;
   provider: {
     [index: string]: IProvider;
@@ -34,12 +33,16 @@ export interface IContracts {
   names: string[];
   contracts: {
     [index: string]: {
-      testnet: {
-        address: string;
+      testnet?: {
+        address?: {
+          [key in Chains]: string;
+        };
         abi: any[];
       };
-      mainnet: {
-        address: string;
+      mainnet?: {
+        address?: {
+          [key in Chains]: string;
+        };
         abi: any[];
       };
     };
