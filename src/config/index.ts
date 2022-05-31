@@ -93,9 +93,7 @@ export const connectWallet = (newChainName: Chains, type: IChainType): IConnectW
 };
 
 export enum ContractsNames {
-  totopad = 'totopad',
-  totoro = 'totoro',
-  fundingToken = 'fundingToken',
+  staking = 'staking',
 }
 
 export type IContractsNames = keyof typeof ContractsNames;
@@ -104,7 +102,7 @@ export const contractsConfig: IContracts = {
   names: Object.keys(ContractsNames),
   decimals: 18,
   contracts: {
-    [ContractsNames.totopad]: {
+    [ContractsNames.staking]: {
       testnet: {
         address: {
           [Chains['Binance-Smart-Chain']]: '0x658396178d33C91a5C60A1164828e00008769a74',
