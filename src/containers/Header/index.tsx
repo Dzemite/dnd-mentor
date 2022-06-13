@@ -1,20 +1,13 @@
 import { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from 'components';
-import { useShallowSelector } from 'hooks';
 import { setActiveModal } from 'store/modals/reducer';
-import userSelector from 'store/user/selectors';
-import { Modals, State, UserState } from 'types';
+import { Modals } from 'types';
 
 import s from './Header.module.scss';
 
-interface IHeaderProps {
-  disconnect: () => void;
-}
-export const Header: FC<IHeaderProps> = ({ disconnect }) => {
+export const Header: FC = () => {
   const dispatch = useDispatch();
-  const { address } = useShallowSelector<State, UserState>(userSelector.getUser);
-
   const openModal = useCallback(
     (type: Modals) => {
       dispatch(
@@ -29,9 +22,7 @@ export const Header: FC<IHeaderProps> = ({ disconnect }) => {
   );
   return (
     <div className={s.headerWrapper}>
-      <Button onClick={() => (address ? disconnect() : openModal(Modals.ConnectWallet))}>
-        {address.length ? 'Disconnect' : 'Connect wallet'}
-      </Button>
+      <Button onClick={() => console.log('click')}>button</Button>
     </div>
   );
 };

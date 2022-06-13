@@ -6,16 +6,9 @@ import { setActiveModal } from 'store/modals/reducer';
 import modalsSelector from 'store/modals/selectors';
 import { Modals, ModalsInitialState, State } from 'types/store';
 
-import { ConnectWalletModal } from './index';
-
 import s from './styles.module.scss';
 
-export interface NotificationModalProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onConnectWallet: (provider: any, newChain: any) => void;
-}
-
-export const NotificationModal: FC<NotificationModalProps> = ({ onConnectWallet }) => {
+export const NotificationModal: FC = () => {
   const dispatch = useDispatch();
   const { modalState } = useShallowSelector<State, ModalsInitialState>(modalsSelector.getModals);
 
@@ -31,11 +24,7 @@ export const NotificationModal: FC<NotificationModalProps> = ({ onConnectWallet 
 
   return (
     <div>
-      <Modal visible={modalState.open} onClose={closeModal} className={s.root}>
-        {modalState.activeModal === Modals.ConnectWallet && (
-          <ConnectWalletModal closeModal={closeModal} onConnectWallet={onConnectWallet} />
-        )}
-      </Modal>
+      <Modal visible={modalState.open} onClose={closeModal} className={s.root} />
     </div>
   );
 };

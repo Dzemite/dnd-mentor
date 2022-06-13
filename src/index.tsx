@@ -5,7 +5,6 @@ import { ToastContainer } from 'react-toastify';
 import { Layout } from 'containers';
 import RouteManager from 'containers/RouterManager';
 import { PersistGate } from 'redux-persist/integration/react';
-import { WalletConnectContext } from 'services';
 
 import store from './store/configureStore';
 
@@ -19,12 +18,10 @@ root.render(
   <Provider store={store.store}>
     <PersistGate loading={null} persistor={store.persistor}>
       <Router>
-        <WalletConnectContext>
-          <ToastContainer autoClose={4000} hideProgressBar position="bottom-right" closeButton />
-          <Layout>
-            <RouteManager />
-          </Layout>
-        </WalletConnectContext>
+        <ToastContainer autoClose={4000} hideProgressBar position="bottom-right" closeButton />
+        <Layout>
+          <RouteManager />
+        </Layout>
       </Router>
     </PersistGate>
   </Provider>,

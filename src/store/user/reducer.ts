@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Chains, UserState } from 'types';
+import { UserState } from 'types';
 
 const initialState: UserState = {
   address: '',
   provider: '',
-  chainType: 'testnet', // TODO change on mainnet preferably
-  network: Chains['Binance-Smart-Chain'],
 };
 
 export const userReducer = createSlice({
@@ -16,15 +14,9 @@ export const userReducer = createSlice({
       ...state,
       ...action.payload,
     }),
-    disconnectWalletState: () => {
-      localStorage.removeItem('walletconnect');
-      return {
-        ...initialState,
-      };
-    },
   },
 });
 
-export const { disconnectWalletState, updateUserState } = userReducer.actions;
+export const { updateUserState } = userReducer.actions;
 
 export default userReducer.reducer;

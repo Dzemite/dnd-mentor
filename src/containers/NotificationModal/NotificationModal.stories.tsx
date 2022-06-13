@@ -8,11 +8,7 @@ export default {
   component: NotificationModal,
 } as ComponentMeta<typeof NotificationModal>;
 
-const Template: ComponentStory<typeof NotificationModal> = (args) => (
-  <>
-    <NotificationModal {...args} />
-  </>
-);
+const Template: ComponentStory<typeof NotificationModal> = (args) => <NotificationModal {...args} />;
 export const Default = Template.bind({});
 
 Default.args = notificationModalPropsMocked;
