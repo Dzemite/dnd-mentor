@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "personalities",
+  "info": {
+    "singularName": "personality",
+    "pluralName": "personalities",
+    "displayName": "Personality"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "outlook": {
+      "type": "text"
+    },
+    "ideal": {
+      "type": "text"
+    },
+    "bonds": {
+      "type": "text"
+    },
+    "flaw": {
+      "type": "text"
+    },
+    "skills": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::skill.skill"
+    },
+    "biography": {
+      "type": "text"
+    },
+    "traits": {
+      "type": "text"
+    }
+  }
+}

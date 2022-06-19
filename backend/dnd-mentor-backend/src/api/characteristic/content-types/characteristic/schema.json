@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "characteristics",
+  "info": {
+    "singularName": "characteristic",
+    "pluralName": "characteristics",
+    "displayName": "characteristic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "strength": {
+      "type": "integer"
+    },
+    "dexterity": {
+      "type": "integer"
+    },
+    "physique": {
+      "type": "integer"
+    },
+    "wisdom": {
+      "type": "integer"
+    },
+    "intelligence": {
+      "type": "integer"
+    },
+    "charisma": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "classes",
+  "info": {
+    "singularName": "class",
+    "pluralName": "classes",
+    "displayName": "Class",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "spellSlots_1": {
+      "type": "integer"
+    },
+    "spellSlots_2": {
+      "type": "integer"
+    },
+    "spellSlots_3": {
+      "type": "integer"
+    },
+    "abilities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ability.ability"
+    },
+    "spells": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::spell.spell"
+    },
+    "skills": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::skill.skill"
+    },
+    "numberOfSkills": {
+      "type": "integer"
+    },
+    "subclasses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::subclass.subclass"
+    }
+  }
+}

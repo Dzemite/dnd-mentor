@@ -1,0 +1,112 @@
+{
+  "kind": "collectionType",
+  "collectionName": "characters",
+  "info": {
+    "singularName": "character",
+    "pluralName": "characters",
+    "displayName": "character",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "age": {
+      "type": "string"
+    },
+    "weight": {
+      "type": "decimal"
+    },
+    "growth": {
+      "type": "decimal"
+    },
+    "movementSpeed": {
+      "type": "integer"
+    },
+    "appearance": {
+      "type": "text"
+    },
+    "race": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::race.race"
+    },
+    "class": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::class.class"
+    },
+    "subclass": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::subclass.subclass"
+    },
+    "characteristic": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::characteristic.characteristic"
+    },
+    "skills": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::skill.skill"
+    },
+    "abilities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ability.ability"
+    },
+    "spells": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::spell.spell"
+    },
+    "healthPoints": {
+      "type": "integer"
+    },
+    "armorClass": {
+      "type": "integer"
+    },
+    "spellSlots_1": {
+      "type": "integer"
+    },
+    "spellSlots_2": {
+      "type": "integer"
+    },
+    "spellSlots_3": {
+      "type": "integer"
+    },
+    "equipment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::equipment.equipment"
+    },
+    "inventory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::inventory.inventory"
+    },
+    "personality": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::personality.personality"
+    },
+    "shortRest": {
+      "type": "boolean"
+    },
+    "longRest": {
+      "type": "boolean"
+    },
+    "sex": {
+      "type": "enumeration",
+      "enum": [
+        "man",
+        "woman"
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "spells",
+  "info": {
+    "singularName": "spell",
+    "pluralName": "spells",
+    "displayName": "spell"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "spellCircle": {
+      "type": "integer"
+    },
+    "school": {
+      "type": "string"
+    },
+    "executionConditions": {
+      "type": "text"
+    }
+  }
+}
