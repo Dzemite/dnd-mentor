@@ -10,19 +10,23 @@ import store from './store/configureStore';
 
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/index.scss';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const container = document.getElementById('root');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
+const queryClient = new QueryClient()
 root.render(
-  <Provider store={store.store}>
-    <PersistGate loading={null} persistor={store.persistor}>
-      <Router>
-        <ToastContainer autoClose={4000} hideProgressBar position="bottom-right" closeButton />
-        <Layout>
-          <RouteManager />
-        </Layout>
-      </Router>
-    </PersistGate>
-  </Provider>,
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store.store}>
+      <PersistGate loading={null} persistor={store.persistor}>
+        <Router>
+          <ToastContainer autoClose={4000} hideProgressBar position="bottom-right" closeButton />
+          <Layout>
+            <RouteManager />
+          </Layout>
+        </Router>
+      </PersistGate>
+    </Provider>
+  </QueryClientProvider>,
 );
