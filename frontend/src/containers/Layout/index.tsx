@@ -18,7 +18,6 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <NotificationModal />
-      <Header />
 
       <main className={s.mainContainer}>{children}</main>
     </>
