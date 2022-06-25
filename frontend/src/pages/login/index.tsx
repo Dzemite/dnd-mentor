@@ -1,4 +1,4 @@
-import LoginForm from "containers/LoginForm";
+import { LoginForm } from "containers";
 import { FC } from "react";
 
 import s from "./Login.module.scss";

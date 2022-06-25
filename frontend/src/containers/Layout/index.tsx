@@ -1,6 +1,5 @@
-import { FC, ReactNode, useCallback, useMemo } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Header, NotificationModal } from 'containers';
 import { useSmoothTopScroll } from 'hooks';
 
 import s from './styles.module.scss';
@@ -16,10 +15,6 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   useSmoothTopScroll(firstPathAtPathname);
 
   return (
-    <>
-      <NotificationModal />
-
-      <main className={s.mainContainer}>{children}</main>
-    </>
+    <main className={s.mainContainer}>{children}</main>
   );
 };
