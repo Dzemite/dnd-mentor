@@ -1,31 +1,9 @@
-import { useMutation, useQuery, UseMutationOptions, UseQueryOptions } from 'react-query';
+import { api } from 'api';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-
-function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
-  return async (): Promise<TData> => {
-    const res = await fetch("http://62.113.110.106:1337/graphql", {
-      method: "POST",
-      body: JSON.stringify({ query, variables }),
-      headers: {
-        "content-type": "application/json"
-      }
-    });
-
-    const json = await res.json();
-
-    if (json.errors) {
-      const { message } = json.errors[0];
-
-      throw new Error(message);
-    }
-
-    return json.data;
-  }
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -33,11 +11,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
-  /** The `Upload` scalar type represents a file upload. */
   Upload: any;
 };
 
@@ -2110,6 +2085,13 @@ export type GetCharacterQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCharacterQuery = { __typename?: 'Query', characters?: { __typename?: 'CharacterEntityResponseCollection', data: Array<{ __typename?: 'CharacterEntity', attributes?: { __typename?: 'Character', equipment?: { __typename?: 'EquipmentEntityResponse', data?: { __typename?: 'EquipmentEntity', id?: string | null, attributes?: { __typename?: 'Equipment', head?: { __typename?: 'ItemEntityResponse', data?: { __typename?: 'ItemEntity', id?: string | null, attributes?: { __typename?: 'Item', name?: string | null } | null } | null } | null } | null } | null } | null } | null }> } | null };
 
+export type SignupMutationVariables = Exact<{
+  data: UsersPermissionsRegisterInput;
+}>;
+
+
+export type SignupMutation = { __typename?: 'Mutation', register: { __typename?: 'UsersPermissionsLoginPayload', jwt?: string | null, user: { __typename?: 'UsersPermissionsMe', id: string, username: string, email?: string | null, confirmed?: boolean | null, blocked?: boolean | null } } };
+
 
 export const LoginDocument = `
     mutation login($data: UsersPermissionsLoginInput!) {
@@ -2125,15 +2107,6 @@ export const LoginDocument = `
   }
 }
     `;
-export const useLoginMutation = <
-      TError = unknown,
-      TContext = unknown
-    >(options?: UseMutationOptions<LoginMutation, TError, LoginMutationVariables, TContext>) =>
-    useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
-      ['login'],
-      (variables?: LoginMutationVariables) => fetcher<LoginMutation, LoginMutationVariables>(LoginDocument, variables)(),
-      options
-    );
 export const GetCharacterDocument = `
     query GetCharacter {
   characters {
@@ -2159,15 +2132,35 @@ export const GetCharacterDocument = `
   }
 }
     `;
-export const useGetCharacterQuery = <
-      TData = GetCharacterQuery,
-      TError = unknown
-    >(
-      variables?: GetCharacterQueryVariables,
-      options?: UseQueryOptions<GetCharacterQuery, TError, TData>
-    ) =>
-    useQuery<GetCharacterQuery, TError, TData>(
-      variables === undefined ? ['GetCharacter'] : ['GetCharacter', variables],
-      fetcher<GetCharacterQuery, GetCharacterQueryVariables>(GetCharacterDocument, variables),
-      options
-    );
+export const SignupDocument = `
+    mutation signup($data: UsersPermissionsRegisterInput!) {
+  register(input: $data) {
+    jwt
+    user {
+      id
+      username
+      email
+      confirmed
+      blocked
+    }
+  }
+}
+    `;
+
+const injectedRtkApi = api.injectEndpoints({
+  endpoints: (build) => ({
+    login: build.mutation<LoginMutation, LoginMutationVariables>({
+      query: (variables) => ({ document: LoginDocument, variables })
+    }),
+    GetCharacter: build.query<GetCharacterQuery, GetCharacterQueryVariables | void>({
+      query: (variables) => ({ document: GetCharacterDocument, variables })
+    }),
+    signup: build.mutation<SignupMutation, SignupMutationVariables>({
+      query: (variables) => ({ document: SignupDocument, variables })
+    }),
+  }),
+});
+
+export { injectedRtkApi as api };
+export const { useLoginMutation, useGetCharacterQuery, useLazyGetCharacterQuery, useSignupMutation } = injectedRtkApi;
+

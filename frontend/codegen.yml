@@ -4,9 +4,11 @@ documents: "src/**/*.graphql"
 generates:
   src/generated/graphql.tsx:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-query"
+      - typescript
+      - typescript-operations
+      - typescript-rtk-query:
+          importBaseApiFrom: 'api'
+          exportHooks: true
     config:
       fetcher:
         endpoint: "http://localhost:1337/graphql"

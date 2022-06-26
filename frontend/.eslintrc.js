@@ -25,10 +25,11 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'simple-import-sort'],
   rules: {
+    "dot-notation": 'warn',
     'no-use-before-define': 'off',
     'no-debugger': 'warn',
     'no-shadow': 'off',
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': ['warn', { devDependencies: true }],
     'simple-import-sort/imports': [
       'warn',
       {

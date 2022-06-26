@@ -1,33 +1,35 @@
-import { Button, Link, TextField } from "@mui/material";
-import { useLoginMutation } from "generated/graphql";
+import { Button, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { loginUser } from "store/reducers/UserReducer/ActionCreator";
+import { useNavigate } from "react-router-dom";
+import { useSignupMutation } from "generated/graphql";
+import { signupUser } from "store/reducers/SignupReducer/ActionCreator";
 
-import s from "./LoginForm.module.scss";
+import s from "./RegistrationForm.module.scss";
 
-export const LoginForm: FC = () => {
-  const location = useLocation();
+export const RegistrationForm: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [ loginMutationTrigger ] = useLoginMutation();
+  const [ signupMutationTrigger ] = useSignupMutation();
 
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {error} = useAppSelector(state => state.userReducer);
 
-  const fromPage = (location.state as {from: any})?.from?.pathname || '';
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) =>  {
-    dispatch(loginUser({
-      loginMutationTrigger,
-      credentials: { email, password }
+    dispatch(signupUser({
+      signupMutationTrigger,
+      credentials: { username, email, password }
     }))
       .then(() => {
-        navigate(fromPage, {replace: true})
+        navigate('/', {replace: true})
       });
 
+    event.preventDefault();
+  };
+  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
     event.preventDefault();
   };
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +42,14 @@ export const LoginForm: FC = () => {
   };
 
   return (
-    <form className={s.loginFormWrapper} onSubmit={handleSubmit}>
+    <form className={s.registrationFormWrapper} onSubmit={handleSubmit}>
+      <TextField
+        id="username"
+        label="Username"
+        value={username}
+        onChange={handleUsernameChange}
+        error={!!error}
+      />
       <TextField
         id="email"
         label="Email"
@@ -57,8 +66,7 @@ export const LoginForm: FC = () => {
         error={!!error}
         helperText={error}
       />
-      <Link href="/signup" underline="hover">registration</Link>
-      <Button type="submit" variant="contained">Login</Button>
+      <Button type="submit" variant="contained">SignUp</Button>
     </form>
   );
 }
