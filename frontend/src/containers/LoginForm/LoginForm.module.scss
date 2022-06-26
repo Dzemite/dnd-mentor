@@ -1,13 +1,16 @@
 .loginFormWrapper {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   width: 20vw;
   min-width: 250px;
   padding: 32px;
   box-sizing: content-box;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
   border-radius: 4px;
+  
+  * {
+    margin-bottom: 8px;
+  }
 
   button {
     margin-top: 16px;

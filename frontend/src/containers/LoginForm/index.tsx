@@ -25,7 +25,8 @@ export const LoginForm: FC = () => {
       credentials: { email, password }
     }))
       .then(() => {
-        navigate(fromPage, {replace: true})
+        debugger;
+        navigate(fromPage || '/', {replace: true})
       });
 
     event.preventDefault();
