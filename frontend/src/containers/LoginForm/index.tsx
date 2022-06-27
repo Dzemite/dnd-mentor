@@ -1,9 +1,10 @@
 import { Button, Link, TextField } from "@mui/material";
-import { useLoginMutation } from "generated/graphql";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { loginUser } from "store/reducers/UserReducer/ActionCreator";
+import { userAPI } from "services/userService";
+import { addUser } from "store/reducers/UserReducer/ActionCreator";
+import { ILoginRes } from "types/responses";
 
 import s from "./LoginForm.module.scss";
 
@@ -11,22 +12,23 @@ export const LoginForm: FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [ loginMutationTrigger ] = useLoginMutation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {error} = useAppSelector(state => state.userReducer);
+  const {user} = useAppSelector(state => state.userReducer);
+  const [authUser, {isError}] = userAPI.useAuthUserMutation();
 
   const fromPage = (location.state as {from: any})?.from?.pathname || '';
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) =>  {
-    dispatch(loginUser({
-      loginMutationTrigger,
-      credentials: { email, password }
-    }))
-      .then(() => {
-        debugger;
+    authUser({ identifier: email, password })
+      .then(res => {
+        localStorage.setItem('token', (res as { data: ILoginRes; }).data.jwt);
+        dispatch(addUser((res as { data: ILoginRes; }).data.user));
         navigate(fromPage || '/', {replace: true})
+      })
+      .catch(err => {
+        console.log(err);
       });
 
     event.preventDefault();
@@ -47,7 +49,7 @@ export const LoginForm: FC = () => {
         label="Email"
         value={email}
         onChange={handleEmailChange}
-        error={!!error}
+        error={isError}
       />
       <TextField
         id="password"
@@ -55,11 +57,12 @@ export const LoginForm: FC = () => {
         type="password"
         value={password}
         onChange={handlePasswordChange}
-        error={!!error}
-        helperText={error}
+        error={isError}
+        // helperText={error}
       />
       <Link href="/signup" underline="hover">registration</Link>
       <Button type="submit" variant="contained">Login</Button>
+      User: {user?.username}
     </form>
   );
 }

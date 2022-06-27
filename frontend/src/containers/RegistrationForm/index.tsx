@@ -2,27 +2,26 @@ import { Button, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSignupMutation } from "generated/graphql";
 import { signupUser } from "store/reducers/SignupReducer/ActionCreator";
+import { addUser } from "store/reducers/UserReducer/ActionCreator";
+import { IUser } from "types/User";
 
 import s from "./RegistrationForm.module.scss";
 
 export const RegistrationForm: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [ signupMutationTrigger ] = useSignupMutation();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {error} = useAppSelector(state => state.userReducer);
+  // const {error} = useAppSelector(state => state.userReducer);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) =>  {
-    dispatch(signupUser({
-      signupMutationTrigger,
-      credentials: { username, email, password }
-    }))
-      .then(() => {
+    dispatch(signupUser({ username, email, password, role: 3 }))
+      .then(user => {
+        
+        dispatch(addUser(user.payload as IUser));
         navigate('/', {replace: true})
       });
 
@@ -48,14 +47,14 @@ export const RegistrationForm: FC = () => {
         label="Username"
         value={username}
         onChange={handleUsernameChange}
-        error={!!error}
+        // error={!!error}
       />
       <TextField
         id="email"
         label="Email"
         value={email}
         onChange={handleEmailChange}
-        error={!!error}
+        // error={!!error}
       />
       <TextField
         id="password"
@@ -63,8 +62,8 @@ export const RegistrationForm: FC = () => {
         type="password"
         value={password}
         onChange={handlePasswordChange}
-        error={!!error}
-        helperText={error}
+        // error={!!error}
+        // helperText={error}
       />
       <Button type="submit" variant="contained">SignUp</Button>
     </form>

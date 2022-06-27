@@ -9,7 +9,7 @@ const initialState: RegisterState = {
 }
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: 'user/signup',
   initialState,
   reducers: {},
   extraReducers: {

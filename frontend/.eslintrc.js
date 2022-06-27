@@ -25,6 +25,8 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'simple-import-sort'],
   rules: {
+    "camelcase": "off",
+    "react/self-closing-comp": "off",
     "dot-notation": 'warn',
     'no-use-before-define': 'off',
     'no-debugger': 'warn',

@@ -9,13 +9,11 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.5",
     "@reduxjs/toolkit": "^1.8.2",
-    "@rtk-query/graphql-request-base-query": "^2.1.0",
     "@types/react-redux": "^7.1.24",
     "axios": "^0.24.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.28.0",
-    "graphql": "^16.5.0",
-    "graphql-request": "^4.3.0",
+    "jwt-decode": "^3.1.2",
     "rc-dialog": "^8.7.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -34,11 +32,6 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.4.0",
-    "@graphql-codegen/cli": "2.6.2",
-    "@graphql-codegen/introspection": "2.1.1",
-    "@graphql-codegen/typescript": "2.5.1",
-    "@graphql-codegen/typescript-operations": "2.4.2",
-    "@graphql-codegen/typescript-rtk-query": "^2.2.14",
     "@testing-library/react": "^13.3.0",
     "@types/node": "^16.11.7",
     "@types/node-sass": "^4.11.2",
@@ -77,8 +70,7 @@
     "lint-fix": "npm run format && npm run lint-fix:ts",
     "lint-fix:ts": "eslint \"{src,types}/**/*.ts{,x}\" --fix",
     "new": "plop --plopfile generators/index.js",
-    "chromatic": "npx chromatic --project-token=0df28a94390a",
-    "graphql:codegen": "graphql-codegen --config codegen.yml"
+    "chromatic": "npx chromatic --project-token=0df28a94390a"
   },
   "browserslist": {
     "production": [

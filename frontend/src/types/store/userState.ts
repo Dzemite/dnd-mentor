@@ -1,13 +1,7 @@
-export type User = {
-  id: string,
-  username: string,
-  email?: string,
-  confirmed?: boolean,
-  blocked?: boolean,
-};
+import { IUser } from "types/User";
 
 export interface UserState {
-  user: User;
+  user: IUser;
   isLoading: boolean;
   error: string;
 }
