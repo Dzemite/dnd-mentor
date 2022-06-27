@@ -1,11 +1,11 @@
-import { Dashboard, Login, Signup, UserProfile } from 'pages';
+import { Main, Login, Signup, UserProfile } from 'pages';
 
 export const routes = [
   {
-    name: 'Dashboard',
+    name: 'Main',
     path: '/',
     requireAuth: true,
-    component: <Dashboard />,
+    component: <Main />,
   },
   {
     name: 'UserProfile',

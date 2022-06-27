@@ -1,35 +1,35 @@
 import { createAsyncThunk, SerializedError } from "@reduxjs/toolkit";
-import { ErrorResponse } from "@rtk-query/graphql-request-base-query/dist/GraphqlBaseQueryTypes";
-import { Exact, SignupMutation, UsersPermissionsRegisterInput } from "generated/graphql";
+import api from "api/axios";
+import { BASE_URL } from "config";
+import { IUser } from "types/User";
 
-interface SignupUserCreatorData {
-  signupMutationTrigger: (arg: Exact<{data: UsersPermissionsRegisterInput;}>) =>
-    Promise<{data: SignupMutation;} | {error: ErrorResponse | SerializedError;}>,
-  credentials: SignupUserCredentials, 
-}
 interface SignupUserCredentials {
   username: string,
   email: string,
   password: string,
+  role?: number,
+  confirmed?: boolean,
+  blocked?: boolean,
+}
+interface SignupUserResponse {
+  data: {
+    jwt: string,
+    user: IUser
+  }
 }
 
 export const signupUser = createAsyncThunk(
   'user/signup',
-  async (creatorData: SignupUserCreatorData, thunkAPI) => {
-    const {signupMutationTrigger, credentials} = creatorData;
-    const response = await signupMutationTrigger(
-      {data: {
-        username: credentials.username,
-        email: credentials.email,
-        password: credentials.password,
-      }}
-    );
-    
-    if ((response as {error: ErrorResponse | SerializedError;}).error) {
-      return thunkAPI.rejectWithValue('Something went wrong.');
-    }
+  async (creatorData: SignupUserCredentials, thunkAPI) => {
+    try {
+      const { data } = await api.post<SignupUserCredentials, SignupUserResponse>(`${BASE_URL}/api/auth/local/register`, creatorData);
+      localStorage.setItem('token', data.jwt);
 
-    localStorage.setItem('token', (response as {data: SignupMutation;}).data?.register.jwt);
-    return (response as {data: SignupMutation;}).data?.register.user;
+      return data.user;
+    } catch (e) {
+      console.error(e);
+    
+      return thunkAPI.rejectWithValue("Не удалось зарегистрировать пользователя")
+    }
   }
 );

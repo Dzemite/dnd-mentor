@@ -1,13 +1,13 @@
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { Layout } from 'containers';
 import RouteManager from 'containers/RouterManager';
 import { Provider } from 'react-redux';
 import { setupStore } from 'store/store';
 
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/index.scss';
+import { Layout } from 'containers';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);

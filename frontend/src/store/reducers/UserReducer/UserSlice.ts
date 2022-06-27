@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User, UserState } from "types";
-import { loginUser } from "./ActionCreator";
+import { UserState } from "types";
+import { IUser } from "types/User";
+import { addUser, fetchUser } from "./ActionCreator";
 
 
 const initialState: UserState = {
@@ -14,15 +15,19 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [loginUser.pending.type]: (state) => {
-      state.isLoading = true;
-    },
-    [loginUser.fulfilled.type]: (state, action: PayloadAction<User>) => {
-      state.isLoading = false;
-      state.error = '';
+    [addUser.type]: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
     },
-    [loginUser.rejected.type]: (state, action: PayloadAction<string>) => {
+    [fetchUser.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
+      state.isLoading = false;
+      state.error = '';
+    },
+    [fetchUser.pending.type]: (state) => {
+      state.isLoading = true;
+      state.error = '';
+    },
+    [fetchUser.rejected.type]: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },

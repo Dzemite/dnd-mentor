@@ -1,6 +1,7 @@
 import { FC, ReactNode, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSmoothTopScroll } from 'hooks';
+import { Header } from 'containers/Header';
 
 import s from './styles.module.scss';
 
@@ -15,6 +16,10 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   useSmoothTopScroll(firstPathAtPathname);
 
   return (
-    <main className={s.mainContainer}>{children}</main>
+    <>
+      <Header></Header>
+      
+      <main className={s.mainContainer}>{children}</main>
+    </>
   );
 };

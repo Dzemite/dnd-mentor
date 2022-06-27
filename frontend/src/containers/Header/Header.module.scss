@@ -2,8 +2,8 @@
 @import '/src/styles/mixins';
 
 .headerWrapper {
-  padding-top: 30px;
-  @include flex(row, center, center, nowrap);
+  padding: 16px;
+  @include flex(row, space-between, center, nowrap);
 
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
