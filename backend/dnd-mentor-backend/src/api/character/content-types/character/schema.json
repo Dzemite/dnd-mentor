@@ -107,6 +107,9 @@
         "man",
         "woman"
       ]
+    },
+    "level": {
+      "type": "integer"
     }
   }
 }
